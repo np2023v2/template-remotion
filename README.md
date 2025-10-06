@@ -2,6 +2,12 @@
 
 A Remotion template for creating vertical (9:16 aspect ratio) news stories videos with animations, similar to Instagram/Facebook Stories format.
 
+## 📚 Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Get started in 5 minutes
+- **[Advanced Usage](ADVANCED.md)** - Detailed customization guide
+- **[Architecture](ARCHITECTURE.md)** - Component structure and technical details
+
 ## Features
 
 - ✅ **Vertical format (9:16)**: Optimized for social media stories
