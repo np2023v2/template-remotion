@@ -1,16 +1,23 @@
-# Template Remotion - News Stories Video
+# Template Remotion - News Stories & Quote Videos
 
-A Remotion template for creating vertical (9:16 aspect ratio) news stories videos with animations, similar to Instagram/Facebook Stories format.
+A Remotion template for creating vertical (9:16 aspect ratio) videos with animations, similar to Instagram/Facebook Stories format. Includes both News Stories and Quote modules.
 
 ## 📚 Documentation
 
+### General
 - **[Quick Start Guide](QUICKSTART.md)** - Get started in 5 minutes
 - **[Features Guide](FEATURES.md)** - New features: Factory, Multi-Story, Zod validation
 - **[Advanced Usage](ADVANCED.md)** - Detailed customization guide
 - **[Architecture](ARCHITECTURE.md)** - Component structure and technical details
 
+### Quote Module (New!)
+- **[Quote Module Documentation](QUOTE_MODULE.md)** - Complete guide to the Quote module
+- **[Quote Quick Start](QUOTE_QUICKSTART.md)** - Create your first quote video in 5 minutes
+- **[Quote Module README](src/quote/README.md)** - API reference and examples
+
 ## Features
 
+### News Stories Module
 - ✅ **Vertical format (9:16)**: Optimized for social media stories
 - ✅ **Background images with animations**: Support for zoom-in, zoom-out, and fade effects
 - ✅ **Animated text segments**: Multiple text animations (fade, slide, typing)
@@ -21,6 +28,16 @@ A Remotion template for creating vertical (9:16 aspect ratio) news stories video
 - ✅ **Story factory**: Fluent builder API for creating stories
 - ✅ **Multi-story support**: Combine multiple stories with transitions
 - ✅ **Fully configurable**: All aspects can be customized via props
+
+### Quote Module (New!)
+- ✅ **Quote videos**: Create beautiful short quote videos
+- ✅ **Flexible backgrounds**: Support for both images and videos
+- ✅ **Audio support**: Add background music or narration
+- ✅ **Friendly animations**: Smooth fade-in, zoom, and pan effects
+- ✅ **Stories/Tags**: Display related categories
+- ✅ **Builder pattern**: Fluent API for easy configuration
+- ✅ **Type-safe**: Full TypeScript support with Zod validation
+- ✅ **Pre-built examples**: 7 ready-to-use quote templates
 
 ## Installation
 
@@ -249,6 +266,48 @@ You can customize the styling by modifying the components in `src/components/New
 - Date display format and position
 - Copyright text appearance
 - Background overlay gradients
+
+## Quote Module
+
+The Quote Module is a complete solution for creating short quote videos. See [QUOTE_MODULE.md](QUOTE_MODULE.md) for full documentation.
+
+### Quick Example
+
+```typescript
+import { createQuote } from './quote';
+
+const myQuote = createQuote()
+  .withQuote('The only way to do great work is to love what you do.')
+  .withAuthor('Steve Jobs')
+  .withBackgroundImage('https://example.com/image.jpg', 'zoom-in')
+  .withStories('Motivation', 'Success')
+  .build();
+```
+
+### Pre-built Quote Examples
+
+The module includes 7 ready-to-use quotes:
+- Motivational Quote (Steve Jobs)
+- Wisdom Quote (Robert Frost)
+- Success Quote (Winston Churchill)
+- Inspiration Quote (Theodore Roosevelt)
+- Happiness Quote (Dalai Lama)
+- Simple Quote (Oscar Wilde)
+- Quote with Audio (Henry Wadsworth Longfellow)
+
+All are available in the Remotion Studio when you run `npm run dev`.
+
+### Quote Module Features
+
+- **Builder Pattern**: Fluent API for creating quotes
+- **Background Support**: Both images and videos
+- **Audio Support**: Add background music
+- **Animations**: zoom-in, zoom-out, fade, pan
+- **Automatic Duration**: Calculates optimal video length
+- **Stories/Tags**: Add categories to quotes
+- **Validation**: Zod schema validation
+
+For more details, see [QUOTE_QUICKSTART.md](QUOTE_QUICKSTART.md).
 
 ## Scripts
 
