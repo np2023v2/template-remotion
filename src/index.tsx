@@ -10,6 +10,17 @@ import {
   multiStoryExample,
   quickNewsExample,
 } from './factoryExamples';
+import {
+  Quote,
+  motivationalQuote,
+  wisdomQuote,
+  successQuote,
+  inspirationQuote,
+  happinessQuote,
+  simpleQuote,
+  quoteWithAudio,
+  calculateQuoteDuration,
+} from './quote';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -93,6 +104,105 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           stories: quickNewsExample,
         }}
+      />
+
+      {/* Quote Compositions */}
+      <Composition
+        id="MotivationalQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          motivationalQuote.quote,
+          motivationalQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={motivationalQuote}
+      />
+
+      <Composition
+        id="WisdomQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          wisdomQuote.quote,
+          wisdomQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={wisdomQuote}
+      />
+
+      <Composition
+        id="SuccessQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          successQuote.quote,
+          successQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={successQuote}
+      />
+
+      <Composition
+        id="InspirationQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          inspirationQuote.quote,
+          inspirationQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={inspirationQuote}
+      />
+
+      <Composition
+        id="HappinessQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          happinessQuote.quote,
+          happinessQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={happinessQuote}
+      />
+
+      <Composition
+        id="SimpleQuote"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          simpleQuote.quote,
+          simpleQuote.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={simpleQuote}
+      />
+
+      <Composition
+        id="QuoteWithAudio"
+        component={Quote as any}
+        durationInFrames={calculateQuoteDuration(
+          quoteWithAudio.quote,
+          quoteWithAudio.author,
+          30
+        )}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={quoteWithAudio}
       />
     </>
   );
