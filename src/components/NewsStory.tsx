@@ -7,6 +7,32 @@ import {
   spring,
   Sequence,
 } from 'remotion';
+import { z } from 'zod';
+
+// Zod schemas for validation
+export const backgroundImageSchema = z.object({
+  url: z.string().url('Invalid image URL'),
+  animation: z.enum(['zoom-in', 'zoom-out', 'fade', 'none']).optional(),
+});
+
+export const textSegmentSchema = z.object({
+  text: z.string().min(1, 'Text cannot be empty'),
+  startFrame: z.number().int().nonnegative('Start frame must be non-negative'),
+  durationInFrames: z.number().int().positive('Duration must be positive'),
+  animation: z.enum(['fade', 'slide', 'typing', 'none']).optional(),
+});
+
+export const newsStoryPropsSchema = z.object({
+  backgroundImages: z
+    .array(backgroundImageSchema)
+    .min(1, 'At least one background image is required'),
+  textSegments: z
+    .array(textSegmentSchema)
+    .min(1, 'At least one text segment is required'),
+  publishDate: z.string().min(1, 'Publish date is required'),
+  tags: z.array(z.string()).min(1, 'At least one tag is required'),
+  copyright: z.string().min(1, 'Copyright text is required'),
+});
 
 export interface BackgroundImage {
   url: string;
@@ -96,11 +122,10 @@ const BackgroundLayer: React.FC<{ image: BackgroundImage }> = ({ image }) => {
 
 const TextLayer: React.FC<{
   segment: TextSegment;
-  startFrame: number;
-}> = ({ segment, startFrame }) => {
+}> = ({ segment }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const localFrame = frame - startFrame;
+  const localFrame = frame;
 
   let opacity = 1;
   let translateY = 0;
@@ -324,6 +349,43 @@ export const NewsStory: React.FC<NewsStoryProps> = ({
   tags,
   copyright,
 }) => {
+  // Validate props with Zod schema
+  const validationResult = newsStoryPropsSchema.safeParse({
+    backgroundImages,
+    textSegments,
+    publishDate,
+    tags,
+    copyright,
+  });
+
+  // If validation fails, display error
+  if (!validationResult.success) {
+    return (
+      <AbsoluteFill
+        style={{
+          backgroundColor: '#000',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '40px',
+        }}
+      >
+        <h1 style={{ fontSize: '48px', marginBottom: '20px' }}>
+          Validation Error
+        </h1>
+        <div style={{ fontSize: '24px', textAlign: 'center' }}>
+          {validationResult.error.errors.map((err, idx) => (
+            <div key={idx} style={{ marginBottom: '10px' }}>
+              {err.path.join('.')}: {err.message}
+            </div>
+          ))}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
   return (
     <AbsoluteFill
       style={{
@@ -345,7 +407,7 @@ export const NewsStory: React.FC<NewsStoryProps> = ({
           from={segment.startFrame}
           durationInFrames={segment.durationInFrames}
         >
-          <TextLayer segment={segment} startFrame={segment.startFrame} />
+          <TextLayer segment={segment} />
         </Sequence>
       ))}
 
