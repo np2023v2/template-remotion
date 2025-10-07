@@ -1,4 +1,4 @@
-import { Composition } from 'remotion';
+import { Composition , registerRoot} from 'remotion';
 import { NewsStory, NewsStoryProps } from './components/NewsStory';
 import { activeConfig } from './config';
 
@@ -17,3 +17,4 @@ export const RemotionRoot: React.FC = () => {
     </>
   );
 };
+registerRoot(RemotionRoot);
