@@ -5,6 +5,7 @@ A Remotion template for creating vertical (9:16 aspect ratio) news stories video
 ## 📚 Documentation
 
 - **[Quick Start Guide](QUICKSTART.md)** - Get started in 5 minutes
+- **[Features Guide](FEATURES.md)** - New features: Factory, Multi-Story, Zod validation
 - **[Advanced Usage](ADVANCED.md)** - Detailed customization guide
 - **[Architecture](ARCHITECTURE.md)** - Component structure and technical details
 
@@ -16,6 +17,9 @@ A Remotion template for creating vertical (9:16 aspect ratio) news stories video
 - ✅ **Publication date display**: Shows date in top-left corner
 - ✅ **Tags support**: Display multiple tags with animations
 - ✅ **Copyright line**: Configurable copyright text
+- ✅ **Zod schema validation**: Runtime type checking with clear error messages
+- ✅ **Story factory**: Fluent builder API for creating stories
+- ✅ **Multi-story support**: Combine multiple stories with transitions
 - ✅ **Fully configurable**: All aspects can be customized via props
 
 ## Installation
@@ -109,6 +113,83 @@ interface TextSegment {
   }}
 />
 ```
+
+## Story Factory (New!)
+
+The story factory provides a fluent builder API for creating news stories with automatic validation.
+
+### Basic Usage
+
+```tsx
+import { createStory } from './storiesFactory';
+
+const story = createStory()
+  .withBackgroundImage(
+    'https://example.com/image.jpg',
+    'zoom-in'
+  )
+  .withTextSegment('Breaking News', 30, 90, 'fade')
+  .withTextSegment('More details', 130, 90, 'slide')
+  .withPublishDate('2024-03-15')
+  .withTags('#News', '#Breaking')
+  .withCopyright('© 2024 News Agency')
+  .build();
+```
+
+### Benefits
+
+- **Type-safe**: Full TypeScript support
+- **Validated**: Automatic Zod validation
+- **Readable**: Clear, fluent API
+- **Flexible**: Easy to modify and extend
+
+## Multi-Story Videos (New!)
+
+Combine multiple stories into one video with smooth transitions.
+
+### Usage
+
+```tsx
+import { MultiStory } from './components/MultiStory';
+import { createStory } from './storiesFactory';
+
+const stories = [
+  {
+    story: createStory()
+      .withBackgroundImage(url1, 'zoom-in')
+      .withTextSegment('First story', 30, 180, 'fade')
+      .withPublishDate('2024-03-15')
+      .withTags('#News')
+      .withCopyright('© 2024')
+      .build(),
+    durationInFrames: 240,
+    transition: 'fade',
+    transitionDuration: 20,
+  },
+  {
+    story: createStory()
+      .withBackgroundImage(url2, 'zoom-out')
+      .withTextSegment('Second story', 30, 180, 'slide')
+      .withPublishDate('2024-03-15')
+      .withTags('#News')
+      .withCopyright('© 2024')
+      .build(),
+    durationInFrames: 240,
+    transition: 'slide-left',
+    transitionDuration: 25,
+  },
+];
+
+<MultiStory stories={stories} />
+```
+
+### Transition Types
+
+- **fade**: Smooth fade in/out
+- **slide-left**: Slide from right to left
+- **slide-right**: Slide from left to right
+- **zoom**: Zoom in on entry, zoom out on exit
+- **none**: Instant cut (no transition)
 
 ## Animation Options
 
